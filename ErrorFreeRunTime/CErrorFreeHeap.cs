@@ -40,20 +40,23 @@ namespace ErrorFreeRunTime
 				address = 0.0;
 
 			address = Math.Floor(address);
-			try
+			if (!_m_out_of_memory)
 			{
-				_m_p_elements[address] = element;
-				Int32 address_index = _m_p_addresses.BinarySearch(address);
-				if (address_index < 0)
-					address_index = ~address_index;
-				_m_p_addresses.Insert(address_index, address);
-			}
-			catch (OutOfMemoryException)
-			{
-				_m_out_of_memory = true;
+				try
+				{
+					_m_p_elements[address] = element;
+					Int32 address_index = _m_p_addresses.BinarySearch(address);
+					if (address_index < 0)
+						address_index = ~address_index;
+					_m_p_addresses.Insert(address_index, address);
+				}
+				catch (OutOfMemoryException)
+				{
+					_m_out_of_memory = true;
 
-				if (_m_p_addresses.Count != _m_p_elements.Count)
-					_m_p_elements.Remove(address);
+					if (_m_p_addresses.Count != _m_p_elements.Count)
+						_m_p_elements.Remove(address);
+				}
 			}
 
 			if (_m_out_of_memory)
