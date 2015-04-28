@@ -315,11 +315,6 @@ namespace ErrorFreeRunTime
 					case (Byte)'L':
 						p_stack.Push(p_heap.ReadElement(p_stack.Pop()));
 						break;
-						
-						// Newlines are meaningless
-					case (Byte)'\n':
-					case (Byte)'\r':
-						break;
 
 					default:
 						p_stack.Push(p_bytes[i]);
